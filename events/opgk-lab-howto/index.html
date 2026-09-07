@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OPGK Labの作り方講座</title>
+<meta name="description" content="無料のブラウザゲーム集「OPGK Lab」を、個人開発でどう作って公開したかをまとめた講座ページです。">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="OPGK Labの作り方講座">
+<meta property="og:description" content="無料のブラウザゲーム集「OPGK Lab」を、個人開発でどう作って公開したかをまとめた講座ページです。">
+<meta property="og:url" content="https://example.github.io/REPO-NAME/events/opgk-lab-howto/index.html">
+<meta name="twitter:card" content="summary">
+
+<link rel="stylesheet" href="../../common/series-style-base.css">
+</head>
+<body data-page="top">
+
+<header id="shell-header" class="shell-header"></header>
+
+<main class="shell-page">
+
+  <section class="shell-section" id="event-info-target"></section>
+
+  <section class="shell-section">
+    <p>
+      OPGK Labは、広告なし・無料で遊べるブラウザゲームを集めたサイトです。
+      個人でアイデアを考え、AIと一緒にコードを書き、GitHub Pagesで公開する——
+      その一連の流れを、実際に手を動かした記録としてまとめました。
+    </p>
+    <p>
+      プログラミング経験がなくても、アカウント作成からサイト公開まで進められることを
+      目指して作ったので、これから何かを公開してみたい方の参考になればと思います。
+    </p>
+  </section>
+
+  <section class="shell-section" id="qr-target"></section>
+
+  <section class="shell-section" id="form-target"></section>
+
+</main>
+
+<footer id="shell-footer" class="shell-footer"></footer>
+
+<script src="event-config.js"></script>
+<script src="../../common/series-shell.js"></script>
+<script>
+  ShellUI.renderEventInfo('#event-info-target');
+  ShellUI.renderQR('#qr-target');
+  ShellUI.renderFormButton('#form-target', '感想・質問を送る');
+</script>
+</body>
+</html>

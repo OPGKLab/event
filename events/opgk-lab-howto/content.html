@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学んだこと｜OPGK Labの作り方講座</title>
+<link rel="stylesheet" href="../../common/series-style-base.css">
+</head>
+<body data-page="content">
+
+<header id="shell-header" class="shell-header"></header>
+
+<main class="shell-page">
+
+  <section class="shell-section">
+    <p>
+      コマンドライン(gitコマンド)は使わず、GitHubのWeb画面だけで進めました。
+      つまずいた順番のまま並べています。
+    </p>
+  </section>
+
+  <section class="shell-section">
+    <ol class="shell-steps">
+
+      <li class="shell-step">
+        <span class="shell-step__num">1</span>
+        <h2 class="shell-step__title">GitHubアカウントとリポジトリを作る</h2>
+        <p class="shell-step__body">
+          GitHubに無料登録し、新しいリポジトリ(ファイルを置く箱)を1つ作成します。
+          公開して問題ない内容だけを置く前提で、公開設定は「Public」にしました。
+        </p>
+        <p class="shell-step__note">
+          Publicリポジトリは、URLを知っている人なら誰でも中身を読めます。
+          この講座サイトも含め、公開前提の内容だけを置くようにしています。
+        </p>
+      </li>
+
+      <li class="shell-step">
+        <span class="shell-step__num">2</span>
+        <h2 class="shell-step__title">Web画面からファイルをアップロードする</h2>
+        <p class="shell-step__body">
+          手元のパソコンでHTML/CSS/JSファイルを用意し、GitHubのリポジトリ画面の
+          「Add file → Upload files」からドラッグ&ドロップでアップロードしました。
+          ゲーム1本ごとにフォルダを分け、共通部分(common)は1か所にまとめています。
+        </p>
+      </li>
+
+      <li class="shell-step">
+        <span class="shell-step__num">3</span>
+        <h2 class="shell-step__title">GitHub Pagesを有効にして公開する</h2>
+        <p class="shell-step__body">
+          リポジトリの Settings → Pages から、公開元のブランチを指定するだけで、
+          <code>https://ユーザー名.github.io/リポジトリ名/</code> の形で無料公開されます。
+          サーバーの契約やお金は一切かかりません。
+        </p>
+      </li>
+
+      <li class="shell-step">
+        <span class="shell-step__num">4</span>
+        <h2 class="shell-step__title">OGPタグでリンクプレビューを整える</h2>
+        <p class="shell-step__body">
+          LINEやSNSでリンクを共有したときに、タイトル・説明文・画像がきれいに
+          表示されるよう、各ページの<code>&lt;head&gt;</code>にOGP用のmetaタグを
+          追加しました。地味ですが、人に紹介するときの印象が大きく変わります。
+        </p>
+      </li>
+
+      <li class="shell-step">
+        <span class="shell-step__num">5</span>
+        <h2 class="shell-step__title">コミット履歴を見る・安全に元に戻す</h2>
+        <p class="shell-step__body">
+          ファイルを更新するたびに履歴が残るので、「いつ・何を変えたか」を
+          あとから確認できます。変更が失敗したときも、以前のバージョンに
+          戻す操作がWeb画面から行えると分かり、安心して手を動かせるようになりました。
+        </p>
+        <p class="shell-step__note">
+          最初は「壊したら戻せないのでは」と不安でしたが、
+          この仕組みを知ってからは気軽に試行錯誤できるようになりました。
+        </p>
+      </li>
+
+    </ol>
+  </section>
+
+</main>
+
+<footer id="shell-footer" class="shell-footer"></footer>
+
+<script src="event-config.js"></script>
+<script src="../../common/series-shell.js"></script>
+</body>
+</html>

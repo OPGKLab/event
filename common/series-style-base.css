@@ -1,0 +1,281 @@
+/* ==========================================================
+   OPGK Lab イベントサイト共通スタイル
+   このファイルはイベントごとに編集しません。
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
+
+:root {
+  --bg: #F7F8F5;
+  --panel: #FFFFFF;
+  --ink: #263029;
+  --muted: #7C877D;
+  --accent: #4F7A5B;
+  --accent-dark: #3A5C45;
+  --border: #DCE0D8;
+  --radius: 4px;
+  --maxw: 640px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Zen Kaku Gothic New', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 0.6em;
+}
+
+a {
+  color: var(--accent-dark);
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* focus visibility (accessibility) */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- レイアウト共通 ---------- */
+
+.shell-page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 20px 64px;
+}
+
+.shell-section {
+  margin-top: 40px;
+}
+
+/* ---------- ヘッダー ---------- */
+
+.shell-header {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+
+.shell-header__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 20px 20px 16px;
+}
+
+.shell-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 14px;
+}
+
+.shell-brand:hover {
+  color: var(--accent-dark);
+}
+
+.shell-event-title {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.shell-event-tagline {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.shell-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shell-nav a {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.shell-nav a:hover {
+  background: var(--panel);
+}
+
+.shell-nav a[aria-current="page"] {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------- パネル(開催情報・QRなど) ---------- */
+
+.shell-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  background: var(--panel);
+}
+
+.shell-panel + .shell-panel {
+  margin-top: 16px;
+}
+
+.shell-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 5em 1fr;
+  gap: 8px 12px;
+  font-size: 15px;
+}
+
+.shell-info-list dt {
+  color: var(--muted);
+}
+
+.shell-info-list dd {
+  margin: 0;
+}
+
+/* ---------- QRブロック ---------- */
+
+.shell-qr {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.shell-qr img {
+  width: 96px;
+  height: 96px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+  background: #fff;
+}
+
+.shell-qr__caption {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- ボタン ---------- */
+
+.shell-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.shell-button:hover {
+  background: var(--accent-dark);
+  color: #fff;
+}
+
+/* ---------- 番号つきステップ(時系列の内容にのみ使用) ---------- */
+
+.shell-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-left: 2px solid var(--border);
+}
+
+.shell-step {
+  position: relative;
+  padding: 0 0 28px 28px;
+}
+
+.shell-step:last-child {
+  padding-bottom: 0;
+}
+
+.shell-step__num {
+  position: absolute;
+  left: -13px;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Shippori Mincho', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shell-step__title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.shell-step__body {
+  margin: 0;
+  font-size: 15px;
+}
+
+.shell-step__note {
+  margin: 8px 0 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--border);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------- フッター ---------- */
+
+.shell-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 56px;
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.shell-footer a {
+  color: var(--muted);
+}
