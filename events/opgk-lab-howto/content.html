@@ -15,68 +15,207 @@
   <section class="shell-section">
     <p>
       コマンドライン(gitコマンド)は使わず、GitHubのWeb画面だけで進めました。
-      つまずいた順番のまま並べています。
+      つまずいた順番のまま並べています。気になるところだけ開いて読んでもらえればOKです。
     </p>
   </section>
 
+  <section class="shell-section" id="toc">
+    <ul class="shell-toc">
+      <li><a href="#overview">全体の流れ</a></li>
+      <li><a href="#step-1">1. アカウントとリポジトリ</a></li>
+      <li><a href="#step-2">2. ファイルのアップロード</a></li>
+      <li><a href="#step-3">3. Pagesで公開</a></li>
+      <li><a href="#step-4">4. OGPタグ</a></li>
+      <li><a href="#step-5">5. コミット履歴</a></li>
+    </ul>
+  </section>
+
+  <section class="shell-section" id="overview">
+    <h2>全体の流れ</h2>
+    <p>
+      「GitHubの使い方」そのものより先に、まずこちらを見てください。
+      ここに書いたのは、私がたどった作業ログではなく、<strong>何かを作りたいと思ったときに使える、汎用的な流れ</strong>です。
+    </p>
+
+    <figure class="shell-diagram">
+      <svg viewBox="0 0 320 780" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="flow-title flow-desc">
+        <title id="flow-title">アイデアを形にするまでの流れ</title>
+        <desc id="flow-desc">何をやりたいか、コンセプト決定、実装イメージをAIに投げる、たたき台ができる、common化できる部分を決める、実装、微調整、GitHubへPush、の8段階の縦の流れ図。5段階目の「common化できる部分を決める」が最も重要な分岐点として強調されている。</desc>
+
+        <line x1="160" y1="40" x2="160" y2="738" style="stroke:var(--border); stroke-width:2;" />
+
+        <g>
+          <rect x="20" y="10" width="280" height="56" rx="4" style="fill:var(--panel); stroke:var(--border); stroke-width:1;"/>
+          <text x="160" y="34" text-anchor="middle" style="fill:var(--ink); font-size:14px; font-family:sans-serif;">① 何をやりたいか?</text>
+          <text x="160" y="52" text-anchor="middle" style="fill:var(--muted); font-size:11px; font-family:sans-serif;">ぼんやりとした思いつきでOK</text>
+        </g>
+
+        <g>
+          <rect x="20" y="106" width="280" height="56" rx="4" style="fill:var(--panel); stroke:var(--border); stroke-width:1;"/>
+          <text x="160" y="130" text-anchor="middle" style="fill:var(--ink); font-size:14px; font-family:sans-serif;">② コンセプト決定</text>
+          <text x="160" y="148" text-anchor="middle" style="fill:var(--muted); font-size:11px; font-family:sans-serif;">AIに相談しながら方向性を固める</text>
+        </g>
+
+        <g>
+          <rect x="20" y="202" width="280" height="56" rx="4" style="fill:var(--panel); stroke:var(--border); stroke-width:1;"/>
+          <text x="160" y="226" text-anchor="middle" style="fill:var(--ink); font-size:14px; font-family:sans-serif;">③ 実装イメージをAIに投げる</text>
+          <text x="160" y="244" text-anchor="middle" style="fill:var(--muted); font-size:11px; font-family:sans-serif;">こんな感じで作りたい、と伝える</text>
+        </g>
+
+        <g>
+          <rect x="20" y="298" width="280" height="56" rx="4" style="fill:var(--panel); stroke:var(--border); stroke-width:1;"/>
+          <text x="160" y="322" text-anchor="middle" style="fill:var(--ink); font-size:14px; font-family:sans-serif;">④ たたき台ができる</text>
+          <text x="160" y="340" text-anchor="middle" style="fill:var(--muted); font-size:11px; font-family:sans-serif;">まず1つ、動くものができる</text>
+        </g>
+
+        <g>
+          <rect x="14" y="391" width="292" height="70" rx="4" style="fill:var(--accent); stroke:var(--accent-dark); stroke-width:1.5;"/>
+          <text x="160" y="417" text-anchor="middle" style="fill:#fff; font-size:14px; font-family:sans-serif; font-weight:bold;">⑤ common化できる部分を決める</text>
+          <text x="160" y="435" text-anchor="middle" style="fill:#fff; font-size:11px; font-family:sans-serif; opacity:0.9;">繰り返し使う部分を、先にここで切り出す</text>
+          <text x="160" y="450" text-anchor="middle" style="fill:#fff; font-size:10px; font-family:sans-serif; opacity:0.75;">◀ ここが一番の分かれ道</text>
+        </g>
+
+        <g>
+          <rect x="20" y="502" width="280" height="56" rx="4" style="fill:var(--panel); stroke:var(--border); stroke-width:1;"/>
+          <text x="160" y="526" text-anchor="middle" style="fill:var(--ink); font-size:14px; font-family:sans-serif;">⑥ 実装</text>
+          <text x="160" y="544" text-anchor="middle" style="fill:var(--muted); font-size:11px; font-family:sans-serif;">共通部分と個別部分に分けて組む</text>
+        </g>
+
+        <g>
+          <rect x="20" y="598" width="280" height="56" rx="4" style="fill:var(--panel); stroke:var(--border); stroke-width:1;"/>
+          <text x="160" y="622" text-anchor="middle" style="fill:var(--ink); font-size:14px; font-family:sans-serif;">⑦ 微調整</text>
+          <text x="160" y="640" text-anchor="middle" style="fill:var(--muted); font-size:11px; font-family:sans-serif;">触ってみて、直す</text>
+        </g>
+
+        <g>
+          <rect x="20" y="694" width="280" height="56" rx="4" style="fill:var(--panel); stroke:var(--border); stroke-width:1;"/>
+          <text x="160" y="718" text-anchor="middle" style="fill:var(--ink); font-size:14px; font-family:sans-serif;">⑧ GitHubへPush</text>
+          <text x="160" y="736" text-anchor="middle" style="fill:var(--muted); font-size:11px; font-family:sans-serif;">手順は下の「手順の詳細」で解説</text>
+        </g>
+
+        <g style="fill:var(--muted);">
+          <path d="M155,90 L165,90 L160,100 Z"/>
+          <path d="M155,186 L165,186 L160,196 Z"/>
+          <path d="M155,282 L165,282 L160,292 Z"/>
+          <path d="M155,373 L165,373 L160,385 Z"/>
+          <path d="M155,467 L165,467 L160,496 Z"/>
+          <path d="M155,582 L165,582 L160,592 Z"/>
+          <path d="M155,678 L165,678 L160,688 Z"/>
+        </g>
+      </svg>
+      <figcaption>アイデアから公開までの、汎用的な8段階(⑤が最も重要な分かれ道)</figcaption>
+    </figure>
+
+    <div class="shell-panel">
+      <p style="margin:0;">
+        <strong>ポイントは⑤です。</strong>④のたたき台ができた直後に量産を始めるのではなく、
+        いったん立ち止まって「これから何度も繰り返す部分」を見極め、先に切り出しておく。
+        ここを飛ばすと、あとから全部を1つずつ書き直すことになります。
+      </p>
+    </div>
+
+    <figure class="shell-diagram">
+      <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="tree-title tree-desc">
+        <title id="tree-title">リポジトリのフォルダ構成</title>
+        <desc id="tree-desc">common フォルダに series-style-base.css と series-shell.js、games フォルダの中に各ゲームのフォルダが並ぶ、2階層のツリー構造</desc>
+
+        <text x="10" y="24" style="fill:var(--ink); font-size:14px; font-family:sans-serif; font-weight:bold;">common/</text>
+        <line x1="20" y1="34" x2="20" y2="66" style="stroke:var(--border); stroke-width:1.5;"/>
+        <line x1="20" y1="46" x2="34" y2="46" style="stroke:var(--border); stroke-width:1.5;"/>
+        <text x="40" y="50" style="fill:var(--muted); font-size:12px; font-family:sans-serif;">series-style-base.css</text>
+        <line x1="20" y1="66" x2="34" y2="66" style="stroke:var(--border); stroke-width:1.5;"/>
+        <text x="40" y="70" style="fill:var(--muted); font-size:12px; font-family:sans-serif;">series-shell.js</text>
+
+        <text x="10" y="106" style="fill:var(--ink); font-size:14px; font-family:sans-serif; font-weight:bold;">games/</text>
+        <line x1="20" y1="116" x2="20" y2="196" style="stroke:var(--border); stroke-width:1.5;"/>
+        <line x1="20" y1="128" x2="34" y2="128" style="stroke:var(--border); stroke-width:1.5;"/>
+        <text x="40" y="132" style="fill:var(--muted); font-size:12px; font-family:sans-serif;">001_slide-puzzle/</text>
+        <line x1="20" y1="152" x2="34" y2="152" style="stroke:var(--border); stroke-width:1.5;"/>
+        <text x="40" y="156" style="fill:var(--muted); font-size:12px; font-family:sans-serif;">002_juguchi-puzzle/</text>
+        <line x1="20" y1="176" x2="34" y2="176" style="stroke:var(--border); stroke-width:1.5;"/>
+        <text x="40" y="180" style="fill:var(--muted); font-size:12px; font-family:sans-serif;">…(ゲームの数だけ続く)</text>
+        <line x1="20" y1="196" x2="34" y2="196" style="stroke:var(--border); stroke-width:1.5;"/>
+        <text x="40" y="200" style="fill:var(--muted); font-size:12px; font-family:sans-serif;">207_kyou-no-mame-chishiki/</text>
+      </svg>
+      <figcaption>OPGK Lab本体の実際のフォルダ構成(共通部分1つ＋ゲームごとのフォルダ)</figcaption>
+    </figure>
+  </section>
+
   <section class="shell-section">
+    <h2>手順の詳細</h2>
     <ol class="shell-steps">
 
-      <li class="shell-step">
+      <li class="shell-step" id="step-1">
         <span class="shell-step__num">1</span>
-        <h2 class="shell-step__title">GitHubアカウントとリポジトリを作る</h2>
-        <p class="shell-step__body">
-          GitHubに無料登録し、新しいリポジトリ(ファイルを置く箱)を1つ作成します。
-          公開して問題ない内容だけを置く前提で、公開設定は「Public」にしました。
-        </p>
-        <p class="shell-step__note">
-          Publicリポジトリは、URLを知っている人なら誰でも中身を読めます。
-          この講座サイトも含め、公開前提の内容だけを置くようにしています。
-        </p>
+        <details open>
+          <summary><h3 class="shell-step__title">GitHubアカウントとリポジトリを作る</h3></summary>
+          <p class="shell-step__body">
+            GitHubに無料登録し、新しいリポジトリ(ファイルを置く箱)を1つ作成します。
+            公開して問題ない内容だけを置く前提で、公開設定は「Public」にしました。
+          </p>
+          <p class="shell-step__note">
+            Publicリポジトリは、URLを知っている人なら誰でも中身を読めます。
+            この講座サイトも含め、公開前提の内容だけを置くようにしています。
+          </p>
+          <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
+        </details>
       </li>
 
-      <li class="shell-step">
+      <li class="shell-step" id="step-2">
         <span class="shell-step__num">2</span>
-        <h2 class="shell-step__title">Web画面からファイルをアップロードする</h2>
-        <p class="shell-step__body">
-          手元のパソコンでHTML/CSS/JSファイルを用意し、GitHubのリポジトリ画面の
-          「Add file → Upload files」からドラッグ&ドロップでアップロードしました。
-          ゲーム1本ごとにフォルダを分け、共通部分(common)は1か所にまとめています。
-        </p>
+        <details open>
+          <summary><h3 class="shell-step__title">Web画面からファイルをアップロードする</h3></summary>
+          <p class="shell-step__body">
+            手元のパソコンでHTML/CSS/JSファイルを用意し、GitHubのリポジトリ画面の
+            「Add file → Upload files」からドラッグ&ドロップでアップロードしました。
+            ゲーム1本ごとにフォルダを分け、共通部分(common)は1か所にまとめています。
+            上の「フォルダ構成」の図が、実際の並びです。
+          </p>
+          <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
+        </details>
       </li>
 
-      <li class="shell-step">
+      <li class="shell-step" id="step-3">
         <span class="shell-step__num">3</span>
-        <h2 class="shell-step__title">GitHub Pagesを有効にして公開する</h2>
-        <p class="shell-step__body">
-          リポジトリの Settings → Pages から、公開元のブランチを指定するだけで、
-          <code>https://ユーザー名.github.io/リポジトリ名/</code> の形で無料公開されます。
-          サーバーの契約やお金は一切かかりません。
-        </p>
+        <details open>
+          <summary><h3 class="shell-step__title">GitHub Pagesを有効にして公開する</h3></summary>
+          <p class="shell-step__body">
+            リポジトリの Settings → Pages から、公開元のブランチを指定するだけで、
+            <code>https://ユーザー名.github.io/リポジトリ名/</code> の形で無料公開されます。
+            サーバーの契約やお金は一切かかりません。
+          </p>
+          <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
+        </details>
       </li>
 
-      <li class="shell-step">
+      <li class="shell-step" id="step-4">
         <span class="shell-step__num">4</span>
-        <h2 class="shell-step__title">OGPタグでリンクプレビューを整える</h2>
-        <p class="shell-step__body">
-          LINEやSNSでリンクを共有したときに、タイトル・説明文・画像がきれいに
-          表示されるよう、各ページの<code>&lt;head&gt;</code>にOGP用のmetaタグを
-          追加しました。地味ですが、人に紹介するときの印象が大きく変わります。
-        </p>
+        <details open>
+          <summary><h3 class="shell-step__title">OGPタグでリンクプレビューを整える</h3></summary>
+          <p class="shell-step__body">
+            LINEやSNSでリンクを共有したときに、タイトル・説明文・画像がきれいに
+            表示されるよう、各ページの<code>&lt;head&gt;</code>にOGP用のmetaタグを
+            追加しました。地味ですが、人に紹介するときの印象が大きく変わります。
+          </p>
+          <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
+        </details>
       </li>
 
-      <li class="shell-step">
+      <li class="shell-step" id="step-5">
         <span class="shell-step__num">5</span>
-        <h2 class="shell-step__title">コミット履歴を見る・安全に元に戻す</h2>
-        <p class="shell-step__body">
-          ファイルを更新するたびに履歴が残るので、「いつ・何を変えたか」を
-          あとから確認できます。変更が失敗したときも、以前のバージョンに
-          戻す操作がWeb画面から行えると分かり、安心して手を動かせるようになりました。
-        </p>
-        <p class="shell-step__note">
-          最初は「壊したら戻せないのでは」と不安でしたが、
-          この仕組みを知ってからは気軽に試行錯誤できるようになりました。
-        </p>
+        <details open>
+          <summary><h3 class="shell-step__title">コミット履歴を見る・安全に元に戻す</h3></summary>
+          <p class="shell-step__body">
+            ファイルを更新するたびに履歴が残るので、「いつ・何を変えたか」を
+            あとから確認できます。変更が失敗したときも、以前のバージョンに
+            戻す操作がWeb画面から行えると分かり、安心して手を動かせるようになりました。
+          </p>
+          <p class="shell-step__note">
+            最初は「壊したら戻せないのでは」と不安でしたが、
+            この仕組みを知ってからは気軽に試行錯誤できるようになりました。
+          </p>
+          <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
+        </details>
       </li>
 
     </ol>
