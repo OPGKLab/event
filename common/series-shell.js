@@ -37,7 +37,7 @@
     const el = document.getElementById('shell-footer');
     if (!el) return;
     el.innerHTML = `
-      <p>🌿 <a href="https://opgklab.github.io/opgk-lab-games/">OPGK Lab</a>${cfg.footerNote ? ' ・ ' + cfg.footerNote : ''}</p>
+      <p>🌿 <a href="${cfg.homeHref || 'index.html'}">OPGK Lab</a>${cfg.footerNote ? ' ・ ' + cfg.footerNote : ''}</p>
     `;
   }
 
@@ -101,9 +101,21 @@
     el.innerHTML = `<a class="shell-button" href="${cfg.formUrl}" target="_blank" rel="noopener">${label || 'フォームを開く'}</a>`;
   }
 
+  // ---------- 右下固定「TOPへ」リンク ----------
+  // トップページ(currentKey === 'top')では表示しない
+  function renderFloatTop() {
+    if (currentKey === 'top') return;
+    const el = document.createElement('a');
+    el.className = 'shell-float-top';
+    el.href = cfg.homeHref || 'index.html';
+    el.textContent = '↑ TOP';
+    document.body.appendChild(el);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     renderHeader();
     renderFooter();
+    renderFloatTop();
   });
 
   // ページ側から呼べるように公開

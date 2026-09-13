@@ -371,3 +371,28 @@ button:focus-visible {
 .shell-footer a {
   color: var(--muted);
 }
+
+/* ---------- 右下固定TOPリンク ---------- */
+
+.shell-float-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(79, 122, 91, 0.82);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  z-index: 100;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.shell-float-top:hover {
+  background: rgba(58, 92, 69, 0.92);
+  color: #fff;
+}
