@@ -14,8 +14,7 @@
 
   <section class="shell-section">
     <p>
-      コマンドライン(gitコマンド)は使わず、GitHubのWeb画面だけで進めました。
-      つまずいた順番のまま並べています。気になるところだけ開いて読んでもらえればOKです。
+      コマンドライン(gitコマンド)は不使用。GitHub Web UIのみで作業しました。詰まった順に記録します。
     </p>
   </section>
 
@@ -26,15 +25,14 @@
       <li><a href="#step-2">2. ファイルのアップロード</a></li>
       <li><a href="#step-3">3. Pagesで公開</a></li>
       <li><a href="#step-4">4. OGPタグ</a></li>
-      <li><a href="#step-5">5. コミット履歴</a></li>
+      <li><a href="#step-5">5. Claudeとの作業フロー</a></li>
     </ul>
   </section>
 
   <section class="shell-section" id="overview">
     <h2>全体の流れ</h2>
     <p>
-      「GitHubの使い方」そのものより先に、まずこちらを見てください。
-      ここに書いたのは、私がたどった作業ログではなく、<strong>何かを作りたいと思ったときに使える、汎用的な流れ</strong>です。
+      個別の作業ログとは別に、着想から公開までの<strong>汎用的な流れ</strong>を示します。
     </p>
 
     <figure class="shell-diagram">
@@ -108,9 +106,7 @@
 
     <div class="shell-panel">
       <p style="margin:0;">
-        <strong>ポイントは⑤です。</strong>④のたたき台ができた直後に量産を始めるのではなく、
-        いったん立ち止まって「これから何度も繰り返す部分」を見極め、先に切り出しておく。
-        ここを飛ばすと、あとから全部を1つずつ書き直すことになります。
+        分岐点は⑤。たたき台完成後、量産着手前に共通化可能な範囲を切り出す。この工程を省くと、後の修正が個別対応になります。
       </p>
     </div>
 
@@ -150,12 +146,10 @@
         <details open>
           <summary><h3 class="shell-step__title">GitHubアカウントとリポジトリを作る</h3></summary>
           <p class="shell-step__body">
-            GitHubに無料登録し、新しいリポジトリ(ファイルを置く箱)を1つ作成します。
-            公開して問題ない内容だけを置く前提で、公開設定は「Public」にしました。
+            Private設定では無料プランでGitHub Pagesを公開できない。この制約により、公開設定はPublicで統一した。
           </p>
-          <p class="shell-step__note">
-            Publicリポジトリは、URLを知っている人なら誰でも中身を読めます。
-            この講座サイトも含め、公開前提の内容だけを置くようにしています。
+          <p class="shell-step__body">
+            設定画面は英語表記のみ。判読が難しい箇所はスクリーンショットをAIに渡し、操作を1つずつ確認しながら進めました。
           </p>
           <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
         </details>
@@ -166,10 +160,13 @@
         <details open>
           <summary><h3 class="shell-step__title">Web画面からファイルをアップロードする</h3></summary>
           <p class="shell-step__body">
-            手元のパソコンでHTML/CSS/JSファイルを用意し、GitHubのリポジトリ画面の
-            「Add file → Upload files」からドラッグ&ドロップでアップロードしました。
-            ゲーム1本ごとにフォルダを分け、共通部分(common)は1か所にまとめています。
-            上の「フォルダ構成」の図が、実際の並びです。
+            当初はGoogle Apps Scriptで運用。共通処理を「Framework」として分離し、個別ゲームは差分のみ実装する構成だった。
+          </p>
+          <p class="shell-step__body">
+            公開時にGoogleの警告表示(個人作成ページの信頼確認)が出る仕様がネックになった。想定利用者に高齢者(母)を含んでいたため、警告表示のあるページは不向きと判断し、GitHub Pagesへ移行しました。
+          </p>
+          <p class="shell-step__body">
+            構成の考え方(共通部分の分離)はそのまま踏襲し、置き場所を<code>common/</code>フォルダに変更しています。
           </p>
           <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
         </details>
@@ -180,9 +177,10 @@
         <details open>
           <summary><h3 class="shell-step__title">GitHub Pagesを有効にして公開する</h3></summary>
           <p class="shell-step__body">
-            リポジトリの Settings → Pages から、公開元のブランチを指定するだけで、
-            <code>https://ユーザー名.github.io/リポジトリ名/</code> の形で無料公開されます。
-            サーバーの契約やお金は一切かかりません。
+            設定変更やPush直後、ブラウザキャッシュにより変更が反映されないケースが頻発した。特にPushを繰り返す初期段階で起きやすい。シークレットモード表示、またはキャッシュクリアで解決します。
+          </p>
+          <p class="shell-step__note">
+            なお、コミット履歴から過去の状態に戻す操作も可能なため、変更を試すこと自体への心理的なハードルは低くなっています。
           </p>
           <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
         </details>
@@ -193,9 +191,7 @@
         <details open>
           <summary><h3 class="shell-step__title">OGPタグでリンクプレビューを整える</h3></summary>
           <p class="shell-step__body">
-            LINEやSNSでリンクを共有したときに、タイトル・説明文・画像がきれいに
-            表示されるよう、各ページの<code>&lt;head&gt;</code>にOGP用のmetaタグを
-            追加しました。地味ですが、人に紹介するときの印象が大きく変わります。
+            OGP設定で特につまずきはなかった。プレビュー用の画像はAIに生成を依頼しています。
           </p>
           <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
         </details>
@@ -204,15 +200,15 @@
       <li class="shell-step" id="step-5">
         <span class="shell-step__num">5</span>
         <details open>
-          <summary><h3 class="shell-step__title">コミット履歴を見る・安全に元に戻す</h3></summary>
+          <summary><h3 class="shell-step__title">Claudeとの作業フロー</h3></summary>
           <p class="shell-step__body">
-            ファイルを更新するたびに履歴が残るので、「いつ・何を変えたか」を
-            あとから確認できます。変更が失敗したときも、以前のバージョンに
-            戻す操作がWeb画面から行えると分かり、安心して手を動かせるようになりました。
+            1ゲーム=1スレッドを基本単位とし、Claudeのプロジェクト機能に関連資料をコンテキストとして投入して進めた。
           </p>
-          <p class="shell-step__note">
-            最初は「壊したら戻せないのでは」と不安でしたが、
-            この仕組みを知ってからは気軽に試行錯誤できるようになりました。
+          <p class="shell-step__body">
+            トークン消費を抑えるため、コード生成前に必ず実装方針を議論し、合意してから生成を指示する運用にしています。見切り発車での生成は避けています。
+          </p>
+          <p class="shell-step__body">
+            着想段階でChatGPTを使う場合は、AI間の引き継ぎ資料を英語で書かせています。日本語は英語よりトークン消費が大きくなりやすいという前提です。
           </p>
           <a class="shell-back-to-toc" href="#toc">↑ 目次へ戻る</a>
         </details>
